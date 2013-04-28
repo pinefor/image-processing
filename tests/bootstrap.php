@@ -1,4 +1,4 @@
 <?php
 $loader = require __DIR__.'/../vendor/autoload.php';
-$loader->add('CLIArrayEditor\Tests', __DIR__);
+$loader->add('ColorAnalyzer\Tests', __DIR__);
 

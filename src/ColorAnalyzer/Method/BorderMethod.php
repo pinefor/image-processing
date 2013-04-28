@@ -9,13 +9,14 @@
  */
 
 namespace ColorAnalyzer\Method;
+use Imagick;
 
 class BorderMethod {
     const COLORS = 15;
 
     private $image;
 
-    public function __construct(\Imagick $image) {
+    public function __construct(Imagick $image) {
         $this->image = $image;
         $this->quantizeImage(self::COLORS);
     }
@@ -77,7 +78,7 @@ class BorderMethod {
     private function quantizeImage($numberColors) {
         return $this->image->quantizeImage(
             $numberColors, 
-            \Imagick::COLORSPACE_RGB, 
+            Imagick::COLORSPACE_RGB, 
             5, false, true
         ); 
     }

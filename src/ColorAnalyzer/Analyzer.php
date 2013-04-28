@@ -10,13 +10,15 @@
 
 namespace ColorAnalyzer;
 use ColorAnalyzer\Method\BorderMethod;
+use Imagick;
 
 class Analyzer {
     private $originalImage;
     private $image;
 
-    public function setImage(\Imagick $image) {
+    public function setImage(Imagick $image) {
         $this->image = $image;
+        $this->image->thumbnailImage(800, 800, true);
     }
 
     public function getColors() {
@@ -28,15 +30,15 @@ class Analyzer {
 
     public function getDebug($colors) {
         $position = 1;
-        foreach($colors) as $color => $count ) {
-            $this->addLegend($this->image, $color, $position++);
+        foreach($colors as $color => $count ) {
+            $this->addLegend($this->image, $color, $position++);    
         }
 
         header('Content-type: image/png');
         echo $this->image;
     }
 
-    private function addLegend(\Imagick $image, $color, $position = 1) {
+    private function addLegend(Imagick $image, $color, $position = 1) {
         $color = new \ImagickPixel($color);
         $rectangle = new \ImagickDraw();
         $rectangle->setfillcolor($color);

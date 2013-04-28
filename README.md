@@ -1,30 +1,27 @@
-CLIArrayEditor [![Build Status](https://travis-ci.org/mcuadros/cli-array-editor.png?branch=master)](https://travis-ci.org/mcuadros/cli-array-editor)
+ColorAnalyzer [![Build Status](https://travis-ci.org/yunait/color-analyzer.png?branch=master)](https://travis-ci.org/yunait/color-analyzer)
 ==============================
 
-This library provides an easy way to edit arrays in CLI using vim or your preferred editor.
+....
 
-Can be useful in scenarios where we need an interface to edit arrays from a CLI PHP application, CLIArrayEditor will open an editor with the array in a readable format (json, yaml, etc) and wait for the user (like "crontab -e" or "git commit"). 
-
-The editor can be configured or by default $EDITOR from the environment will be used.
 
 Requirements
 ------------
 
-* PHP 5.3.23;
+* PHP 5.4.x;
 * Unix system;
-* PECL yaml >= 0.5.0 (optional)
+* PECL imagick >= 3.1.x
 
 
 Installation
 ------------
 
-The recommended way to install CLIArrayEditor is [through composer](http://getcomposer.org).
-You can see [package information on Packagist.](https://packagist.org/packages/mcuadros/cli-array-editor)
+The recommended way to install ColorAnalyzer is [through composer](http://getcomposer.org).
+You can see [package information on Packagist.](https://packagist.org/packages/yunait/color-analyzer)
 
 ```JSON
 {
     "require": {
-        "mcuadros/cli-array-editor": "dev"
+        "yunait/color-analyzer": "dev"
     }
 }
 ```
@@ -32,25 +29,8 @@ You can see [package information on Packagist.](https://packagist.org/packages/m
 
 Examples
 --------
+....
 
-```php
-use CLIArrayEditor\Editor;
-use CLIArrayEditor\Format\JSON;
-
-$tmp = array(
-    'baz' => true,
-    'foo' => 'bar'
-);
-
-$editor = new Editor();
-$result = $editor
-    ->setFormat(new JSON)
-    ->edit($tmp);
-
-print_r($result);
-```
-
-Check available Editor's methods in [src/CLIArrayEditor/Editor.php](src/CLIArrayEditor/Editor.php)
 
 Tests
 -----
