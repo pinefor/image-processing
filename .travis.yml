@@ -1,0 +1,11 @@
+language: php
+
+php:
+  - 5.3
+  - 5.4
+
+script: phpunit
+
+before_script:
+  - printf "\n"| pecl install yaml
+  - composer --dev install
