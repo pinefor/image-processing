@@ -24,7 +24,7 @@ body {
     height: 400px; /* or whatever you want */
     line-height: 400px; /* or whatever you want, should match height */
     text-align: center;
-    border:1px solid white;
+    border:0px solid white;
 }
 
 .container > img {
