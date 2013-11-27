@@ -2,16 +2,17 @@
 use ColorAnalyzer\Analyzer;
 $loader = require __DIR__.'/../vendor/autoload.php';
 
-if  ( $_SERVER['SCRIPT_NAME'] != '/' ) {
-    $file = __DIR__ . '/../resources/' . $_SERVER['SCRIPT_NAME'];
+if ($_SERVER['SCRIPT_NAME'] != '/') {
+    $file = __DIR__ . '/../tests/Resources/' . $_SERVER['SCRIPT_NAME'];
     if ( !file_exists($file) ) return false;
 
     $ca = new Analyzer();
     $ca->setImage(new Imagick($file));
-    $ca->getColors();
+    $colors = $ca->getColors(3, false);
+
+    $ca->getDebug($colors);
     exit();
 }
-
 
 echo <<<CSS
 <style>
@@ -36,22 +37,19 @@ body {
 </style>
 CSS;
 
-
-$directory = realpath(__DIR__ . '/../resources/');
+$directory = realpath(__DIR__ . '/../tests/Resources/');
 
 $it = new RecursiveIteratorIterator(
     new RecursiveDirectoryIterator($directory)
 );
 
-while($it->valid()) {
+while ($it->valid()) {
     if (!$it->isDot()) {
         printf(
-            '<div class="container"><img src="%s" /></div>', 
+            '<div class="container"><img src="%s" /></div>',
             str_replace($directory, '', $it->key())
         );
     }
 
     $it->next();
 }
-
-

@@ -1,44 +1,74 @@
 <?php
-/*
- * This file is part of the CLIArrayEditor package.
- *
- * (c) Máximo Cuadros <mcuadros@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace ColorAnalyzer;
 use ColorAnalyzer\Method\BorderMethod;
-use Imagick;
+use Imagick, ImagickPixel;
 
-class Analyzer {
+class Analyzer
+{
     private $originalImage;
     private $image;
 
-    public function setImage(Imagick $image) {
+    public function setImage(Imagick $image)
+    {
         $this->image = $image;
-        $this->image->thumbnailImage(800, 800, true);
     }
 
-    public function getColors() {
-        $method = new BorderMethod(clone $this->image);
+    public function getColors($numberColors, $hexFormat = true)
+    {
+        $image = clone $this->image;
+        $image->thumbnailImage(800, 800, true);
+
+        $method = new BorderMethod($image);
         $colors = $method->get();
 
-        $this->getDebug($colors);
+        if ($hexFormat) {
+            $colors = $this->convertColorsToHEXCode($colors);
+        }
+
+        return array_slice($colors, 0, $numberColors);
     }
 
-    public function getDebug($colors) {
+    protected function convertColorsToHEXCode(array $colors)
+    {
+        $output = [];
+        foreach ($colors as $color => $count) {
+            $hex = $this->iMagickColorToHEX($color);
+            if (!isset($output[$hex])) {
+                $output[$hex] = 0;
+            }
+
+            $output[$hex] += $count;
+        }
+
+        return $output;
+    }
+
+    protected function iMagickColorToHEX($string)
+    {
+        $pixel = new ImagickPixel($string);
+        $color = $pixel->getColor();
+
+        return sprintf('#%s%s%s',
+            dechex($color['r']),
+            dechex($color['g']),
+            dechex($color['b'])
+        );
+    }
+
+    public function getDebug(Array $colors)
+    {
         $position = 1;
-        foreach($colors as $color => $count ) {
-            $this->addLegend($this->image, $color, $position++);    
+        foreach ($colors as $color => $count) {
+            $this->addLegend($this->image, $color, $position++);
         }
 
         header('Content-type: image/png');
         echo $this->image;
     }
 
-    private function addLegend(Imagick $image, $color, $position = 1) {
+    private function addLegend(Imagick $image, $color, $position = 1)
+    {
         $color = new \ImagickPixel($color);
         $rectangle = new \ImagickDraw();
         $rectangle->setfillcolor($color);

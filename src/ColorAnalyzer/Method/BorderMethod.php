@@ -1,27 +1,22 @@
 <?php
-/*
- * This file is part of the CLIArrayEditor package.
- *
- * (c) Máximo Cuadros <mcuadros@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 namespace ColorAnalyzer\Method;
 use Imagick;
 
-class BorderMethod {
+class BorderMethod
+{
     const COLORS = 15;
 
     private $image;
 
-    public function __construct(Imagick $image) {
+    public function __construct(Imagick $image)
+    {
         $this->image = $image;
         $this->quantizeImage(self::COLORS);
     }
 
-    public function get() {
+    public function get()
+    {
         $histograms = [];
         $geometry = $this->image->getImageGeometry();
 
@@ -46,27 +41,27 @@ class BorderMethod {
         unset($right);
 
         $final = $this->getHistorgram($this->image);
-        //var_dump($final, $histograms);
         foreach ($histograms as $histogram) {
             foreach ($histogram as $color => $value) {
                 unset($final[$color]);
             }
         }
 
-        asort($final);
-        //var_dump($final);
+        arsort($final);
+
         return $final;
     }
 
-    private function getHistorgram(Imagick $image, $discardUnder = 10) {
+    private function getHistorgram(Imagick $image, $discardUnder = 10)
+    {
         $geometry = $this->image->getImageGeometry();
         $total = $geometry['width'] * $geometry['height'];
 
         $histogram = [];
-        foreach($image->getImageHistogram() as $pixel){
+        foreach ($image->getImageHistogram() as $pixel) {
             $color = $pixel->getColorAsString();
             $count = $pixel->getColorCount();
-            if ( $count > 1000 ) {
+            if ($count > 1000) {
                 $histogram[$color] = $count;
             }
             //var_dump($total, $count,    $total/$count);
@@ -74,12 +69,13 @@ class BorderMethod {
 
         return $histogram;
     }
-    
-    private function quantizeImage($numberColors) {
+
+    private function quantizeImage($numberColors)
+    {
         return $this->image->quantizeImage(
-            $numberColors, 
-            Imagick::COLORSPACE_RGB, 
+            $numberColors,
+            Imagick::COLORSPACE_RGB,
             5, false, true
-        ); 
+        );
     }
 }
