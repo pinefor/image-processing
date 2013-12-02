@@ -1,6 +1,6 @@
 {
-    "name": "yunait/color-analyzer",
-    "homepage": "http://github.com/yunait/color-analyzer",
+    "name": "yunait/image-processing",
+    "homepage": "http://github.com/yunait/image-processing",
     "type": "library",
     "license": "MIT",
     "authors": [
