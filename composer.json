@@ -1,6 +1,6 @@
 {
-    "name": "yunait/image-processing",
-    "homepage": "http://github.com/yunait/image-processing",
+    "name": "pinefor/image-processing",
+    "homepage": "http://github.com/pinefor/image-processing",
     "type": "library",
     "license": "MIT",
     "authors": [
