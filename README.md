@@ -1,4 +1,4 @@
-ColorAnalyzer [![Build Status](https://travis-ci.org/yunait/color-analyzer.png?branch=master)](https://travis-ci.org/yunait/color-analyzer)
+ColorAnalyzer
 ==============================
 
 ....
@@ -16,12 +16,12 @@ Installation
 ------------
 
 The recommended way to install ColorAnalyzer is [through composer](http://getcomposer.org).
-You can see [package information on Packagist.](https://packagist.org/packages/yunait/color-analyzer)
+You can see [package information on Packagist.](https://packagist.org/packages/pinefor/color-analyzer)
 
 ```JSON
 {
     "require": {
-        "yunait/color-analyzer": "dev"
+        "pinefor/color-analyzer": "dev"
     }
 }
 ```
